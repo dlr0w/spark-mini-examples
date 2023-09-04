@@ -21,7 +21,7 @@ public class HivePrac {
 						+ "{\"user\": {\"name\": \"Matei\", \"location\": \"Berkley\"}, \"text\" : \"Even nicer here :)\"}";
 
 		// ファイルの保存先を指定
-		String path = "C:\\Users\\sekai\\Downloads\\tweets.json";
+		String path = "好きなディレクトリ";
 		try (
 			PrintWriter out = new PrintWriter(new File(path))) {
 			out.print(jsonData);
