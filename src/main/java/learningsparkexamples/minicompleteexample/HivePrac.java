@@ -1,4 +1,5 @@
 package learningsparkexamples.minicompleteexample;
+
 import org.apache.spark.sql.SparkSession;
 
 import java.io.File;
@@ -11,27 +12,23 @@ import org.apache.spark.sql.Row;
 public class HivePrac {
 	public static void main(String[] args) {
 
-		SparkSession spark = SparkSession.builder()
-				.appName("HivePrac")
-				.master("local[*]")
-				.enableHiveSupport()
+		SparkSession spark = SparkSession.builder().appName("HivePrac").master("local[*]").enableHiveSupport()
 				.getOrCreate();
 
 		String jsonData = "{\"user\": {\"name\": \"Holden\", \"location\": \"San Francisco\"}, \"text\" : \"Nice day out today\"}\n"
-						+ "{\"user\": {\"name\": \"Matei\", \"location\": \"Berkley\"}, \"text\" : \"Even nicer here :)\"}";
+				+ "{\"user\": {\"name\": \"Matei\", \"location\": \"Berkley\"}, \"text\" : \"Even nicer here :)\"}";
 
 		// ファイルの保存先を指定
 		String path = "好きなディレクトリ";
-		try (
-			PrintWriter out = new PrintWriter(new File(path))) {
+		try (PrintWriter out = new PrintWriter(new File(path))) {
 			out.print(jsonData);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// JSONファイルを読み込む        
-        Dataset<Row> tweets = spark.read().json(path);
+		// JSONファイルを読み込む
+		Dataset<Row> tweets = spark.read().json(path);
 
 		// DataFrameを一時ビューとして登録
 		tweets.createOrReplaceTempView("tweets");
